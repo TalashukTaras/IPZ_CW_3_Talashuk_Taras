@@ -33,6 +33,29 @@ class MainActivity : ComponentActivity() {
 data class DayItem(val day: Int, val title: String, val imageRes: Int, val caption: String)
 
 @Composable
+fun DayCard(dayItem: DayItem) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Text(text = dayItem.title, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(8.dp))
+        Image(
+            painter = painterResource(id = dayItem.imageRes),
+            contentDescription = "Image",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .clip(shape = RoundedCornerShape(8.dp)),
+            contentScale = ContentScale.Crop
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = dayItem.caption)
+    }
+}
+
+@Composable
 fun CardList() {
     // Список з ресурсами для кожного дня
     val dayResources = listOf(
@@ -69,5 +92,35 @@ fun CardList() {
         items(daysList) { dayItem ->
             DayCard(dayItem = dayItem)
         }
+    }
+}
+@Composable
+fun DayCard(dayItem: DayItem) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Text(text = dayItem.title, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(8.dp))
+        Image(
+            painter = painterResource(id = dayItem.imageRes),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .clip(shape = RoundedCornerShape(8.dp)),
+            contentScale = ContentScale.Crop
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = dayItem.caption)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCardList() {
+    IPZ_CW_3_Talashuk_TarasTheme {
+        CardList()
     }
 }
