@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ListItem ()
+
                 }
             }
         }
@@ -32,3 +32,42 @@ class MainActivity : ComponentActivity() {
 }
 data class DayItem(val day: Int, val title: String, val imageRes: Int, val caption: String)
 
+@Composable
+fun CardList() {
+    // Список з ресурсами для кожного дня
+    val dayResources = listOf(
+        R.drawable.image_day_1, R.drawable.image_day_2, R.drawable.image_day_3,
+        R.drawable.image_day_4, R.drawable.image_day_5, R.drawable.image_day_6,
+        R.drawable.image_day_7, R.drawable.image_day_8, R.drawable.image_day_9,
+        R.drawable.image_day_10
+    )
+
+    // Заголовки та підписи для кожного дня
+    val dayTitles = listOf(
+        "Day 1", "Day 2", "Day 3", "Day 4", "Day 5",
+        "Day 6", "Day 7", "Day 8", "Day 9", "Day 10"
+    )
+
+    val dayCaptions = listOf(
+        "Caption for Day 1", "Caption for Day 2", "Caption for Day 3",
+        "Caption for Day 4", "Caption for Day 5", "Caption for Day 6",
+        "Caption for Day 7", "Caption for Day 8", "Caption for Day 9",
+        "Caption for Day 10"
+    )
+
+    // Генеруємо список з 10 днями, вибираючи ресурси, заголовки та підписи для кожного дня
+    val daysList = (1..10).mapIndexed { index, day ->
+        DayItem(
+            day = day,
+            title = dayTitles[index % dayTitles.size],
+            imageRes = dayResources[index % dayResources.size],
+            caption = dayCaptions[index % dayCaptions.size]
+        )
+    }
+
+    LazyColumn {
+        items(daysList) { dayItem ->
+            DayCard(dayItem = dayItem)
+        }
+    }
+}
