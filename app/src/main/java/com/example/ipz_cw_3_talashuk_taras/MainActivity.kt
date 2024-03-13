@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+
                     CardList()
                 }
             }
@@ -46,9 +48,12 @@ fun DayCard(dayItem: DayItem) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(18.dp)
+            .background(color = Color.Gray, shape = RoundedCornerShape(9.dp))
     ) {
-        Text(text = dayItem.title, fontWeight = FontWeight.Bold)
+        Text(text = dayItem.title,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(horizontal = 16.dp))
         Spacer(modifier = Modifier.height(8.dp))
         Image(
             painter = painterResource(id = dayItem.imageRes),
@@ -56,7 +61,9 @@ fun DayCard(dayItem: DayItem) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
+
                 .clip(shape = RoundedCornerShape(8.dp)),
+
             contentScale = ContentScale.Crop
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -69,6 +76,7 @@ fun CardList() {
     val daysList = generateDaysList()
 
     LazyColumn {
+
         items(daysList) { dayItem ->
             DayCard(dayItem = dayItem)
         }
